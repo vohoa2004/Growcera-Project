@@ -9,19 +9,19 @@ interface ManagementSectionProps {
 const ManagementSection: React.FC<ManagementSectionProps> = ({ onCardPress }) => {
     const managementCards = [
         {
-            id: 'product',
+            id: 'inventory',
             title: 'Product Management',
             description: 'Manage inventory',
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/e35eafc4f6bd1bcafded76d2c063ab943852ce41?placeholderIfAbsent=true',
         },
         {
-            id: 'financial',
+            id: 'finance',
             title: 'Financial',
             description: 'Track finances',
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/1394d62c685746ac319a889e29e819e9250ed994?placeholderIfAbsent=true',
         },
         {
-            id: 'supply',
+            id: 'supplier',
             title: 'Supply Chain',
             description: 'Manage suppliers',
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/d3a0d557d3c08ee7cafb52a9f8e83e0ccd4efede?placeholderIfAbsent=true',

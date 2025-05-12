@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
-import HeaderBar from '../components/supplier/HeaderBar';
-import FilterButton from '../components/supplier/FilterButton';
-import SupplierCard from '../components/supplier/SupplierCard';
-import BottomNavBar from '../components/supplier/BottomNavBar';
+import HeaderBar from 'components/supplier/HeaderBar';
+import FilterButton from 'components/supplier/FilterButton';
+import SupplierCard from 'components/supplier/SupplierCard';
+import BottomNavBar from 'components/supplier/BottomNavBar';
 
 // Sample data for suppliers
 const suppliers = [
