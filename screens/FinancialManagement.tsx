@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
-import Header from '../components/finance/Header';
+import Header from 'components/finance/Header';
 import TransactionRecords from 'components/finance/TransactionRecords';
 import BuyerDebtTracking from 'components/finance/BuyerDebtTracking';
 import CashFlowSummary from 'components/finance/CashFlowSummary';

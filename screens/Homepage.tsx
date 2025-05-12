@@ -3,23 +3,31 @@ import HeaderSection from 'components/home/HeaderSetion';
 import ManagementSection from 'components/home/ManagementSection';
 import OverviewSection from 'components/home/OverviewSection';
 import BottomNavigation from 'components/home/BottomNavigation';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { useRouter } from 'expo-router';
 
 // Import components
 
 const Homepage: React.FC = () => {
-    // Handler for management card press
-    const handleCardPress = (cardType: string) => {
-        console.log(`Card pressed: ${cardType}`);
-        // Navigation logic would go here
-    };
+    const router = useRouter();
+
+    const handleCardPress = useCallback((cardType: string) => {
+        try {
+            router.push(`/management/${cardType.toLowerCase()}`);
+        } catch (error) {
+            console.error('Navigation error:', error);
+        }
+    }, [router]);
 
     // Handler for navigation item press
-    const handleNavPress = (itemId: string) => {
-        console.log(`Nav item pressed: ${itemId}`);
-        // Navigation logic would go here
-    };
+    const handleNavPress = useCallback((itemId: string) => {
+        try {
+            router.push(`/${itemId}`);
+        } catch (error) {
+            console.error('Navigation error:', error);
+        }
+    }, [router]);
 
     // Navigation items
     const navItems = [

@@ -13,7 +13,7 @@ export default function App() {
       {/* <InventoryDashboard></InventoryDashboard> */}
       {/* <FinanceManagement></FinanceManagement> */}
       {/* <AISupplierScreen></AISupplierScreen> */}
-      <Homepage></Homepage>
+      {/* <Homepage></Homepage> */}
     </>
   );
 }
