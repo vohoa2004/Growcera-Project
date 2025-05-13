@@ -1,0 +1,47 @@
+# Ignore compiled files
+*.class
+*.jar
+*.war
+
+# Ignore build directories
+target/
+build/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+# Ignore temporary files
+*.tmp
+*.temp
+# Ignore backup files
+*~
+# Ignore environment files
+.env
+# Ignore package manager files
+# Node.js
+node_modules/
+# Python
+__pycache__/
+# Ignore database files
+*.db
+# Ignore coverage reports
+coverage/
+# Ignore documentation files
+docs/
+# Ignore test files
+tests/
+# Ignore configuration files
+*.config
+# Ignore cache files
+.cache/
+# Ignore secrets files
+*.secret
+# Ignore deployment files   
+*.deploy
