@@ -3,25 +3,33 @@ import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import Header from 'components/finance/Header';
 import TransactionRecords from 'components/finance/TransactionRecords';
 import BuyerDebtTracking from 'components/finance/BuyerDebtTracking';
-import CashFlowSummary from 'components/finance/CashFlowSummary';
+// import CashFlowSummary from 'components/finance/CashFlowSummary';
 import ExportReport from 'components/finance/ExportReport';
 import FinancialSuggestions from 'components/finance/FinancialSuggestions';
-import OverspendingAlerts from 'components/finance/OverspendingAlerts';
+// import OverspendingAlerts from 'components/finance/OverspendingAlerts';
 import TransactionClassification from 'components/finance/TransactionClassification';
 import BottomNavigation from 'components/finance/BottomNavigation';
+import HeaderBar from 'components/HeaderBar';
+import { useRouter } from 'expo-router';
+
 const FinanceManagement = () => {
     const [activeTab, setActiveTab] = useState('home');
-
+    const router = useRouter();
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <Header />
+                <HeaderBar
+                    title="Financial Management"
+                    onBackPress={() => router.back()}
+                    onSearchPress={() => console.log('Search pressed')}
+                    onNotificationPress={() => console.log('Notification pressed')}
+                />
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.sections}>
                         <TransactionRecords />
                         <BuyerDebtTracking />
                         <TransactionClassification />
-                        <CashFlowSummary />
+                        {/* <CashFlowSummary /> */}
                         <FinancialSuggestions />
                         {/* <OverspendingAlerts /> */}
                         <ExportReport />

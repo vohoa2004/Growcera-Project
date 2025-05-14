@@ -14,7 +14,12 @@ const Homepage: React.FC = () => {
 
     const handleCardPress = useCallback((cardType: string) => {
         try {
-            router.push(`/management/${cardType.toLowerCase()}`);
+            if (cardType === 'messages') {
+                router.push(`/${cardType.toLowerCase()}`);
+            }
+            else {
+                router.push(`/management/${cardType.toLowerCase()}`);
+            }
         } catch (error) {
             console.error('Navigation error:', error);
         }

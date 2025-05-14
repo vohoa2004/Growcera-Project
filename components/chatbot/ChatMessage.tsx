@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import SvgIcon from './SvgIcon';
+import Markdown from 'react-native-markdown-display';
 
 interface ChatMessageProps {
     isUser?: boolean;
@@ -31,9 +32,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isUser = false, message, icon
     </defs>
   </svg>`;
 
-    // Split message by newlines to handle multi-line messages
-    const messageLines = message.split('\n');
-
     return (
         <View className={`flex-row my-2 mx-4 ${isUser ? 'justify-end' : 'justify-start'}`}>
             {!isUser && (
@@ -46,14 +44,16 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ isUser = false, message, icon
                 className={`px-4 py-3 rounded-2xl max-w-[80%] ${isUser ? 'bg-blue-500' : 'bg-gray-100'
                     }`}
             >
-                {messageLines.map((line, index) => (
-                    <Text
-                        key={index}
-                        className={`${isUser ? 'text-white' : 'text-gray-800'} text-base`}
-                    >
-                        {line}
-                    </Text>
-                ))}
+                <Markdown
+                    style={{
+                        body: {
+                            color: isUser ? 'white' : '#1F2937',
+                            fontSize: 16,
+                        },
+                    }}
+                >
+                    {message}
+                </Markdown>
             </View>
 
             {isUser && (
