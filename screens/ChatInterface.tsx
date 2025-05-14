@@ -4,6 +4,8 @@ import ChatMessage from 'components/chatbot/ChatMessage';
 import QuickActionButtons from 'components/chatbot/QuickActionButtons';
 import React, { useState } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import chatbotCaller from 'utils/chatbotCaller';
+import { useRouter } from 'expo-router';
 
 
 interface Message {
@@ -13,26 +15,23 @@ interface Message {
 }
 
 const ChatInterface: React.FC = () => {
+    const router = useRouter();
+
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hi! I'm your store assistant. How can I help you today?",
+            text: "Xin chào, tôi là trợ lý ảo của Growcera. Hôm nay tôi có thể giúp gì cho bạn?",
             isUser: false,
-        },
-        {
-            id: '2',
-            text: "I need help with inventory management",
-            isUser: true,
         },
     ]);
 
     const quickActions = [
-        "What to restock?",
-        "Finance advice?",
-        "Sales analysis"
+        "Mặt hàng nào bán chạy?",
+        "Tư vấn Tài chính?",
+        "Doanh thu hôm nay?",
     ];
 
-    const handleSendMessage = (text: string) => {
+    const handleSendMessage = async (text: string) => {
         const newMessage: Message = {
             id: Date.now().toString(),
             text,
@@ -41,15 +40,17 @@ const ChatInterface: React.FC = () => {
 
         setMessages([...messages, newMessage]);
 
-        // Simulate assistant response after a short delay
-        setTimeout(() => {
+        try {
+            const response = await chatbotCaller.post('/chat', { message: text });
             const assistantResponse: Message = {
                 id: (Date.now() + 1).toString(),
-                text: "I'll help you with inventory management. What specific aspect would you like assistance with?",
+                text: response.data.response,
                 isUser: false,
             };
             setMessages(prev => [...prev, assistantResponse]);
-        }, 1000);
+        } catch (error) {
+            console.error('Error sending message to chatbot:', error);
+        }
     };
 
     const handleQuickAction = (action: string) => {
@@ -57,8 +58,7 @@ const ChatInterface: React.FC = () => {
     };
 
     const handleBackPress = () => {
-        console.log('Back button pressed');
-        // Implement navigation logic here
+        router.back()
     };
 
     const handleMenuPress = () => {
