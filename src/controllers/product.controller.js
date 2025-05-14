@@ -112,3 +112,28 @@ export const getLowStockProducts = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const getProductsNearExpire = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+    SELECT DISTINCT p.*, pb.expiration_date
+    FROM products p
+    JOIN batch_items bi ON p.id = bi.product_id
+    JOIN product_batches pb ON bi.batch_id = pb.id
+    WHERE pb.expiration_date <= DATE_ADD(CURDATE(), INTERVAL 30 DAY)
+  AND pb.expiration_date >= CURDATE();
+    `);
+    // add field expiry_after to rows
+    rows.forEach((row) => {
+      const expiryDate = new Date(row.expiration_date);
+      const currentDate = new Date();
+      const timeDiff = expiryDate - currentDate;
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      row.expiry_after = daysDiff;
+    });
+
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
