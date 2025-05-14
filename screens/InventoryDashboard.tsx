@@ -70,13 +70,11 @@ export const InventoryDashboard: React.FC = () => {
                         <MetricCard
                             title="Revenue"
                             value={formatMoney(todayRevenue.toString())}
-                            // changeText="+12.5% vs last week"
                             icon={<UpTrendIcon />}
                         />
                         <MetricCard
                             title="Orders"
                             value={todayOrders.toString()}
-                            // changeText="+8.2% vs last week"
                             icon={<BagIcon />}
                         />
                     </View>

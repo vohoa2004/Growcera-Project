@@ -9,7 +9,7 @@ interface ManagementSectionProps {
 const ManagementSection: React.FC<ManagementSectionProps> = ({ onCardPress }) => {
     const managementCards = [
         {
-            id: 'inventory',
+            id: 'product',
             title: 'Product Management',
             description: 'Manage inventory',
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/e35eafc4f6bd1bcafded76d2c063ab943852ce41?placeholderIfAbsent=true',

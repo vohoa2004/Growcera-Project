@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import SectionHeader from './SectionHeader';
 import { CustomerDebt } from 'models/CustomerDebt';
 import { getAll } from 'services/customer-debt';
-import { formatDateTime } from 'utils/formatter';
+import { formatDateTime, formatMoney } from 'utils/formatter';
 
 const DebtItem = ({ customer_name, amount, created_at }: CustomerDebt) => {
     return (
@@ -44,7 +44,7 @@ const BuyerDebtTracking = () => {
                     <DebtItem
                         key={index}
                         customer_name={item.customer_name}
-                        amount={item.amount}
+                        amount={formatMoney(item.amount)}
                         created_at={formatDateTime(item.created_at)}
                     />
                 ))}
