@@ -61,8 +61,6 @@ export const getProductById = async (req, res) => {
         batch_code: row.batch_code,
         quantity: row.batch_quantity,
         expiration_date: row.expiration_date,
-        import_date: row.import_date,
-        created_at: row.batch_created_at,
       }));
 
     res.json({
