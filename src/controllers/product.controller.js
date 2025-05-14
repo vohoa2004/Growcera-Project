@@ -10,15 +10,77 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const getProductById = async (req, res) => {
+  const productId = req.params.id;
+
   try {
-    const [rows] = await db.query("SELECT * FROM products WHERE id = ?", [
-      req.params.id,
-    ]);
-    if (rows.length === 0)
-      return res.status(404).json({ error: "Không tìm thấy sản phẩm" });
-    res.json(rows[0]);
+    const [rows] = await db.query(
+      `
+      SELECT 
+        p.id AS product_id,
+        p.code,
+        p.name,
+        p.description,
+        p.quantity,
+        p.unit_price,
+        p.unit,
+        p.imageUrl,
+        p.created_at AS product_created_at,
+        pb.id AS batch_id,
+        pb.batch_code,
+        pb.quantity AS batch_quantity,
+        pb.expiration_date
+      FROM products p
+      LEFT JOIN batch_items bi ON p.id = bi.product_id
+      LEFT JOIN product_batches pb ON bi.batch_id = pb.id
+      WHERE p.id = ?
+    `,
+      [productId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Tách product & batches
+    const {
+      product_id,
+      code,
+      name,
+      description,
+      quantity,
+      unit_price,
+      unit,
+      product_created_at,
+      imageUrl,
+    } = rows[0];
+
+    const batches = rows
+      .filter((row) => row.batch_id !== null)
+      .map((row) => ({
+        batch_id: row.batch_id,
+        batch_code: row.batch_code,
+        quantity: row.batch_quantity,
+        expiration_date: row.expiration_date,
+        import_date: row.import_date,
+        created_at: row.batch_created_at,
+      }));
+
+    res.json({
+      product: {
+        product_id,
+        code,
+        name,
+        description,
+        quantity,
+        unit_price,
+        unit,
+        imageUrl,
+        created_at: product_created_at,
+      },
+      batches,
+    });
   } catch (err) {
-    res.status(500).json({ error: "Lỗi lấy sản phẩm" });
+    res.status(500).json({ error: err.message });
   }
 };
 
