@@ -1,38 +1,55 @@
-import React from 'react';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { getTodayOrderCount, getTodayRevenue } from 'services/sale';
+import { formatMoney } from 'utils/formatter';
 
-interface OverviewSectionProps {
-    salesAmount: string;
-    ordersCount: string;
-    chartImageUrl: string;
-}
+// interface OverviewSectionProps {
+//     salesAmount: string;
+//     ordersCount: string;
+//     chartImageUrl: string;
+// }
 
-const OverviewSection: React.FC<OverviewSectionProps> = ({
-    salesAmount = "$1,234",
-    ordersCount = "28",
-    chartImageUrl = "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/129d627bd2e7d896d12ffe0269bd125baa1cd6d6?placeholderIfAbsent=true"
-}) => {
+const OverviewSection: React.FC = () => {
+    const [todayRevenue, setTodayRevenue] = useState(0);
+    const [todayOrders, setTodayOrders] = useState(0);
+    const router = useRouter();
+    useEffect(() => {
+        const fetchTodayData = async () => {
+            try {
+                const revenueResponse = await getTodayRevenue();
+                setTodayRevenue(revenueResponse.revenue)
+
+                const orderResponse = await getTodayOrderCount();
+                setTodayOrders(orderResponse.total_orders)
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách sales:", error)
+            }
+        }
+        fetchTodayData()
+    }, [])
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <View>
                     <Text style={styles.sectionTitle}>Today's Overview</Text>
                 </View>
-                <View style={styles.chartIconContainer}>
+                {/* <View style={styles.chartIconContainer}>
                     <Image
                         source={{ uri: chartImageUrl }}
                         style={styles.chartIcon}
                     />
-                </View>
+                </View> */}
             </View>
             <View style={styles.metricsContainer}>
                 <View style={styles.metricBox}>
                     <Text style={styles.metricLabel}>Sales</Text>
-                    <Text style={styles.metricValue}>{salesAmount}</Text>
+                    <Text style={styles.metricValue}>{formatMoney(todayRevenue)}</Text>
                 </View>
                 <View style={styles.metricBox}>
                     <Text style={styles.metricLabel}>Orders</Text>
-                    <Text style={styles.metricValue}>{ordersCount}</Text>
+                    <Text style={styles.metricValue}>{todayOrders}</Text>
                 </View>
             </View>
         </View>
