@@ -182,3 +182,31 @@ export const getLatestSales = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const getMonthlyProfit = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+    SELECT
+    IFNULL(SUM(s.total_amount), 0) AS revenue,
+    IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS total_cost,
+    IFNULL(SUM(s.total_amount), 0) - IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS profit
+  FROM sales s
+  JOIN sale_items si ON s.id = si.sale_id
+  JOIN (
+      SELECT product_id, AVG(cost_price) AS cost_price
+      FROM batch_items
+      GROUP BY product_id
+  ) AS avg_batch_cost ON si.product_id = avg_batch_cost.product_id
+  WHERE MONTH(s.created_at) = MONTH(CURDATE())
+    AND YEAR(s.created_at) = YEAR(CURDATE())
+    `);
+
+    res.json({
+      revenue: rows[0].revenue,
+      total_cost: rows[0].total_cost,
+      profit: rows[0].profit,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
