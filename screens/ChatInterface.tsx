@@ -20,15 +20,15 @@ const ChatInterface: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Xin chào, tôi là trợ lý ảo của Growcera. Hôm nay tôi có thể giúp gì cho bạn?",
+            text: "Hi, I'm Growcera Assistant. How can I help you today?",
             isUser: false,
         },
     ]);
 
     const quickActions = [
-        "Mặt hàng nào bán chạy?",
-        "Tư vấn Tài chính?",
-        "Doanh thu hôm nay?",
+        "Top selling products?",
+        "Financial report?",
+        "Today's Revenue?",
     ];
 
     const handleSendMessage = async (text: string) => {

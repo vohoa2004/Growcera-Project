@@ -87,11 +87,7 @@ const Homepage: React.FC = () => {
                 />
                 <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
                     <View style={styles.content}>
-                        <OverviewSection
-                            salesAmount="$1,234"
-                            ordersCount="28"
-                            chartImageUrl="https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/129d627bd2e7d896d12ffe0269bd125baa1cd6d6?placeholderIfAbsent=true"
-                        />
+                        <OverviewSection onPress={() => router.push('/management/inventory')} />
                         <ManagementSection onCardPress={handleCardPress} />
                         <ActivitySection activities={activities} />
                         <View style={styles.bottomSpacer} />

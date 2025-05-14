@@ -19,3 +19,13 @@ export const getLowStocks = async () => {
         throw error;
     }
 }
+
+export const getSoonExpired = async () => {
+    try {
+        const response = await apiCaller.get('/products/soon-expired');
+        return response.data;
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách sản phẩm sắp hết hạn:', error);
+        throw error;
+    }
+}
