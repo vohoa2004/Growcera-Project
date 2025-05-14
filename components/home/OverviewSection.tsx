@@ -1,16 +1,14 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { getTodayOrderCount, getTodayRevenue } from 'services/sale';
 import { formatMoney } from 'utils/formatter';
 
-// interface OverviewSectionProps {
-//     salesAmount: string;
-//     ordersCount: string;
-//     chartImageUrl: string;
-// }
+interface OverviewSectionProps {
+    onPress: () => void;
+}
 
-const OverviewSection: React.FC = () => {
+const OverviewSection: React.FC<OverviewSectionProps> = ({ onPress }) => {
     const [todayRevenue, setTodayRevenue] = useState(0);
     const [todayOrders, setTodayOrders] = useState(0);
     const router = useRouter();
@@ -30,7 +28,7 @@ const OverviewSection: React.FC = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <View style={styles.headerContainer}>
                 <View>
                     <Text style={styles.sectionTitle}>Today's Overview</Text>
@@ -52,7 +50,7 @@ const OverviewSection: React.FC = () => {
                     <Text style={styles.metricValue}>{todayOrders}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
