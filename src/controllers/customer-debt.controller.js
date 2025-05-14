@@ -7,6 +7,11 @@ export const getAllCustomerDebts = async (req, res) => {
     const [rows] = await pool.query(
       "SELECT customer_name, phone, amount, note, created_at FROM customer_debts"
     );
+    // just return date (DD/MM/YYYY) in created_at
+    rows.forEach((row) => {
+      row.created_at = new Date(row.created_at).toLocaleDateString("en-GB");
+    });
+
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
