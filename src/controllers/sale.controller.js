@@ -170,3 +170,15 @@ export const getMonthlyRevenue = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// get top 3 latest record of sales
+export const getLatestSales = async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      "SELECT * FROM sales ORDER BY created_at DESC LIMIT 3"
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

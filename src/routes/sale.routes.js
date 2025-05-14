@@ -9,6 +9,7 @@ import {
   getTodayOrderCount,
   getTopSellingProducts,
   getMonthlyRevenue,
+  getLatestSales,
 } from "../controllers/sale.controller.js";
 
 const router = Router();
@@ -18,6 +19,7 @@ router.get("/revenue/today", getTodayRevenue);
 router.get("/revenue/month", getMonthlyRevenue);
 router.get("/order-count/today", getTodayOrderCount);
 router.get("/top-products", getTopSellingProducts);
+router.get("/latest", getLatestSales);
 router.get("/:id", getSaleById);
 router.post("/", createSale);
 router.put("/:id", updateSale);
