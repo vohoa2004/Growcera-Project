@@ -202,27 +202,30 @@ export const getLatestSales = async (req, res) => {
 
 export const getMonthlyProfit = async (req, res) => {
   try {
-    const [rows] = await db.query(`
-    SELECT
-    IFNULL(SUM(s.total_amount), 0) AS revenue,
-    IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS total_cost,
-    IFNULL(SUM(s.total_amount), 0) - IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS profit
-  FROM sales s
-  JOIN sale_items si ON s.id = si.sale_id
-  JOIN (
-      SELECT product_id, AVG(cost_price) AS cost_price
-      FROM batch_items
-      GROUP BY product_id
-  ) AS avg_batch_cost ON si.product_id = avg_batch_cost.product_id
-  WHERE MONTH(s.created_at) = MONTH(CURDATE())
-    AND YEAR(s.created_at) = YEAR(CURDATE())
-    `);
+    const [[{ revenue }]] = await db.query(`
+  SELECT SUM(total_amount) AS revenue
+  FROM sales
+  WHERE MONTH(created_at) = MONTH(CURDATE())
+    AND YEAR(created_at) = YEAR(CURDATE())
+`);
 
-    res.json({
-      revenue: rows[0].revenue,
-      total_cost: rows[0].total_cost,
-      profit: rows[0].profit,
-    });
+    const [[{ total_cost }]] = await db.query(`
+SELECT
+  SUM(si.quantity * avg_cost.cost_price) AS total_cost
+FROM sales s
+JOIN sale_items si ON s.id = si.sale_id
+JOIN (
+  SELECT product_id, AVG(cost_price) AS cost_price
+  FROM batch_items
+  GROUP BY product_id
+) avg_cost ON si.product_id = avg_cost.product_id
+WHERE MONTH(s.created_at) = MONTH(CURDATE())
+  AND YEAR(s.created_at) = YEAR(CURDATE())
+`);
+
+    const profit = revenue - total_cost;
+
+    res.json({ revenue, total_cost, profit: profit.toString() });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
