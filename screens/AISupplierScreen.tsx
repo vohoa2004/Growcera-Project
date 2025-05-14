@@ -1,42 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import HeaderBar from 'components/supplier/HeaderBar';
 import FilterButton from 'components/supplier/FilterButton';
 import SupplierCard from 'components/supplier/SupplierCard';
 import BottomNavBar from 'components/supplier/BottomNavBar';
-
-// Sample data for suppliers
-const suppliers = [
-    {
-        id: '1',
-        name: 'Green Valley Foods',
-        imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/4f6a832a9647d13609a9d9a6c8869beb94c8b42e',
-        rating: 4.8,
-        reviewCount: '2.5k reviews',
-        tags: ['Verified', 'Fast Delivery']
-    },
-    {
-        id: '2',
-        name: 'Fresh Farm Supply',
-        imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/b21c3901f08e49037bb625786042e96baa71b699',
-        rating: 4.6,
-        reviewCount: '1.8k reviews',
-        tags: ['Verified', 'Bulk Orders']
-    },
-    {
-        id: '3',
-        name: 'Organic Essentials',
-        imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/b5673096ab35fec6368ac415005b1191c5abee9c',
-        rating: 4.9,
-        reviewCount: '3.2k reviews',
-        tags: ['Premium', 'Fast Delivery']
-    }
-];
+import { Supplier } from 'models/Supplier';
+import { getAll } from 'services/supplier';
 
 // Filter options
-const filterOptions = ['All Metrics', 'Price', 'Fast Delivery'];
+const filterOptions = ['All Suppliers', 'AI Suggestions'];
 
 const AISupplierScreen: React.FC = () => {
+    const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+
+    useEffect(() => {
+        const fetchSuppliers = async () => {
+            try {
+                const response = await getAll();
+                setSuppliers(response);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách sales:", error);
+            }
+        };
+        fetchSuppliers();
+    }, []);
+
     const [activeFilter, setActiveFilter] = useState('All Metrics');
     const [activeTab, setActiveTab] = useState('home');
 
@@ -48,7 +36,7 @@ const AISupplierScreen: React.FC = () => {
         setActiveTab(tabName);
     };
 
-    const handleViewDetails = (supplierId: string) => {
+    const handleViewDetails = (supplierId: string | number) => {
         console.log(`View details for supplier ${supplierId}`);
         // Navigation logic would go here
     };
@@ -83,11 +71,14 @@ const AISupplierScreen: React.FC = () => {
                         {suppliers.map((supplier) => (
                             <SupplierCard
                                 key={supplier.id}
+                                id={supplier.id}
                                 name={supplier.name}
+                                address={supplier.address}
+                                phone={supplier.phone}
                                 imageUrl={supplier.imageUrl}
                                 rating={supplier.rating}
-                                reviewCount={supplier.reviewCount}
-                                tags={supplier.tags}
+                                // reviewCount={supplier.reviewCount}
+                                // tags={supplier.tags}
                                 onViewDetails={() => handleViewDetails(supplier.id)}
                             />
                         ))}

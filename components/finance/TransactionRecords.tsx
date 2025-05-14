@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from 'react-native';
 import SectionHeader from './SectionHeader';
+import { getLatestSales } from 'services/sale';
+import { Sale } from 'models/Transaction';
+import { formatDateTime, formatMoney } from "utils/formatter";
 
-interface TransactionItemProps {
-    type: string;
-    amount: string;
-    date: string;
-}
-
-const TransactionItem = ({ type, amount, date }: TransactionItemProps) => {
-    const isPositive = amount.startsWith('+');
+const TransactionItem = ({ type, total_amount, created_at }: Sale) => {
+    const isPositive = total_amount.startsWith('+');
 
     return (
         <View style={styles.itemContainer}>
@@ -17,21 +14,29 @@ const TransactionItem = ({ type, amount, date }: TransactionItemProps) => {
                 <View style={styles.itemHeader}>
                     <Text style={styles.itemType}>{type}</Text>
                     <Text style={[styles.itemAmount, isPositive ? styles.positive : styles.negative]}>
-                        {amount}
+                        {total_amount}
                     </Text>
                 </View>
-                <Text style={styles.itemDate}>{date}</Text>
+                <Text style={styles.itemDate}>{created_at}</Text>
             </View>
         </View>
     );
 };
 
 const TransactionRecords = () => {
-    const transactions = [
-        { type: 'Sale', amount: '+₫1,200,000', date: 'Apr 29' },
-        { type: 'Purchase', amount: '-₫800,000', date: 'Apr 28' },
-        { type: 'Sale', amount: '+₫950,000', date: 'Apr 28' },
-    ];
+    const [transactions, setTransactions] = useState<Sale[]>([])
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            try {
+                const response = await getLatestSales();
+                setTransactions(response)
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách sales:", error)
+            }
+        }
+        fetchTransactions()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -40,9 +45,9 @@ const TransactionRecords = () => {
                 {transactions.map((transaction, index) => (
                     <TransactionItem
                         key={index}
-                        type={transaction.type}
-                        amount={transaction.amount}
-                        date={transaction.date}
+                        type={"Sales"}
+                        total_amount={formatMoney(transaction.total_amount)}
+                        created_at={formatDateTime(transaction.created_at)}
                     />
                 ))}
             </View>

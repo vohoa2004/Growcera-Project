@@ -1,17 +1,10 @@
-import React from "react";
+import { LowStockProduct } from "models/Product";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
-interface LowStockAlertProps {
-  productName: string;
-  stockCount: number;
-  alertType: "critical" | "warning";
-  icon: React.ReactNode;
-  onPressOrder: () => void;
-}
-
-export const LowStockAlert: React.FC<LowStockAlertProps> = ({
-  productName,
-  stockCount,
+export const LowStockAlert: React.FC<LowStockProduct> = ({
+  name,
+  quantity,
   alertType,
   icon,
   onPressOrder,
@@ -25,9 +18,9 @@ export const LowStockAlert: React.FC<LowStockAlertProps> = ({
           {icon}
         </View>
         <View>
-          <Text className="font-medium text-gray-800">{productName}</Text>
+          <Text className="font-medium text-gray-800">{name}</Text>
           <Text className="text-gray-500 text-sm">
-            Only {stockCount} units left
+            Only {quantity} units left
           </Text>
         </View>
       </View>
