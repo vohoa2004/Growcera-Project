@@ -1,36 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SectionHeader from './SectionHeader';
+import { CustomerDebt } from 'models/CustomerDebt';
+import { getAll } from 'services/customer-debt';
+import { formatDateTime } from 'utils/formatter';
 
-interface DebtItemProps {
-    name: string;
-    amount: string;
-    dueDate: string;
-}
-
-const DebtItem = ({ name, amount, dueDate }: DebtItemProps) => {
+const DebtItem = ({ customer_name, amount, created_at }: CustomerDebt) => {
     return (
         <View style={styles.itemContainer}>
             <View style={styles.nameContainer}>
-                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.name}>{customer_name}</Text>
             </View>
             <View style={styles.amountContainer}>
                 <Text style={styles.amount}>{amount}</Text>
             </View>
-            <View style={styles.dueDateContainer}>
-                <Text style={styles.dueDate}>{dueDate}</Text>
+            <View style={styles.dateContainer}>
+                <Text style={styles.date}>{created_at}</Text>
             </View>
         </View>
     );
 };
 
 const BuyerDebtTracking = () => {
-    const debtItems = [
-        { name: 'Nguyen Van A', amount: '₫2,500,000', dueDate: 'Due: May 5' },
-        { name: 'Tran Thi B', amount: '₫1,800,000', dueDate: 'Due: May 7' },
-        { name: 'Le Van C', amount: '₫1,200,000', dueDate: 'Due: May 10' },
-    ];
 
+    const [debtItems, setDebtItems] = React.useState<CustomerDebt[]>([]);
+
+    useEffect(() => {
+        const fetchBuyerDebt = async () => {
+            try {
+                const response = await getAll();
+                setDebtItems(response)
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách sales:", error)
+            }
+        }
+        fetchBuyerDebt()
+    }, [])
     return (
         <View style={styles.container}>
             <SectionHeader title="Buyer Debt Tracking" onPress={() => { }} />
@@ -38,9 +43,9 @@ const BuyerDebtTracking = () => {
                 {debtItems.map((item, index) => (
                     <DebtItem
                         key={index}
-                        name={item.name}
+                        customer_name={item.customer_name}
                         amount={item.amount}
-                        dueDate={item.dueDate}
+                        created_at={formatDateTime(item.created_at)}
                     />
                 ))}
             </View>
@@ -82,11 +87,11 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#111827',
     },
-    dueDateContainer: {
+    dateContainer: {
         flex: 1,
         alignItems: 'flex-end',
     },
-    dueDate: {
+    date: {
         fontSize: 14,
         color: '#6B7280',
     },

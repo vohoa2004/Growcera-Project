@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.4",
+    "axios": "^1.9.0",
     "expo": "^53.0.9",
     "expo-router": "~5.0.6",
     "expo-status-bar": "~2.2.3",

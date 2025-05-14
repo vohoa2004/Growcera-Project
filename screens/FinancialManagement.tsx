@@ -23,7 +23,7 @@ const FinanceManagement = () => {
                         <TransactionClassification />
                         <CashFlowSummary />
                         <FinancialSuggestions />
-                        <OverspendingAlerts />
+                        {/* <OverspendingAlerts /> */}
                         <ExportReport />
                     </View>
                 </ScrollView>

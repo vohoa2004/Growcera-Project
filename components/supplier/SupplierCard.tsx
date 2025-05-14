@@ -1,22 +1,15 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { BookmarkIcon, StarIcon } from './SVGIcons';
+import { Supplier } from 'models/Supplier';
 
-interface SupplierCardProps {
-    name: string;
-    imageUrl: string;
-    rating: number;
-    reviewCount: string;
-    tags: string[];
-    onViewDetails: () => void;
-}
-
-const SupplierCard: React.FC<SupplierCardProps> = ({
+const SupplierCard: React.FC<Supplier> = ({
+    id,
     name,
+    address,
+    phone,
     imageUrl,
     rating,
-    reviewCount,
-    tags,
     onViewDetails
 }) => {
     return (
@@ -29,12 +22,14 @@ const SupplierCard: React.FC<SupplierCardProps> = ({
                     />
                     <View className="ml-3">
                         <Text className="text-gray-800 font-semibold text-base">{name}</Text>
+                        <Text className="text-gray-600 text-sm mt-1">{address}</Text>
+                        <Text className="text-gray-600 text-sm">{phone}</Text>
                         <View className="flex-row items-center mt-1">
                             <View className="mr-1">
                                 <StarIcon />
                             </View>
                             <Text className="text-gray-800 font-medium mr-1">{rating}</Text>
-                            <Text className="text-gray-500 text-sm">({reviewCount})</Text>
+                            {/* <Text className="text-gray-500 text-sm">({reviewCount})</Text> */}
                         </View>
                     </View>
                 </View>
@@ -43,7 +38,7 @@ const SupplierCard: React.FC<SupplierCardProps> = ({
                 </View>
             </View>
 
-            <View className="flex-row mt-3 mb-3">
+            {/* <View className="flex-row mt-3 mb-3">
                 {tags.map((tag, index) => (
                     <View
                         key={index}
@@ -66,7 +61,7 @@ const SupplierCard: React.FC<SupplierCardProps> = ({
                         </Text>
                     </View>
                 ))}
-            </View>
+            </View> */}
 
             <TouchableOpacity
                 onPress={onViewDetails}

@@ -4,14 +4,14 @@ import { View, Text } from "react-native";
 interface MetricCardProps {
   title: string;
   value: string;
-  changeText: string;
+  // changeText: string;
   icon: React.ReactNode;
 }
 
 export const MetricCard: React.FC<MetricCardProps> = ({
   title,
   value,
-  changeText,
+  // changeText,
   icon,
 }) => {
   return (
@@ -21,7 +21,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         <View>{icon}</View>
       </View>
       <Text className="text-2xl font-bold text-gray-800 mb-1">{value}</Text>
-      <Text className="text-green-600 text-xs">{changeText}</Text>
+      {/* <Text className="text-green-600 text-xs">{changeText}</Text> */}
     </View>
   );
 };

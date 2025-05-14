@@ -1,21 +1,33 @@
-import React from "react";
+import { TopSellingProduct } from "models/Product";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
+import { getTopSellingProducts } from "services/sale";
 
 export const TopSellingProducts: React.FC = () => {
+  const [topSellingProducts, setTopSellingProducts] = useState<TopSellingProduct[]>([])
+
+  useEffect(() => {
+    const fetchTopSellingProducts = async () => {
+      try {
+        const response = await getTopSellingProducts();
+        setTopSellingProducts(response)
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách sales:", error)
+      }
+    }
+    fetchTopSellingProducts()
+  }, [])
   return (
-    <View className="bg-white rounded-xl p-4 shadow-sm mb-4">
-      <Text className="text-lg font-bold text-gray-800 mb-3">
+    <View className="bg-white rounded-xl p-6 shadow-md mb-6">
+      <Text className="text-xl font-bold text-gray-900 mb-4">
         Top Selling Products
       </Text>
-      <View className="flex-row justify-between">
-        <View className="h-4 w-24 bg-gray-100 rounded-full" />
-      </View>
-      <View className="flex-row justify-between mt-3">
-        <View className="h-4 w-32 bg-gray-100 rounded-full" />
-      </View>
-      <View className="flex-row justify-between mt-3">
-        <View className="h-4 w-28 bg-gray-100 rounded-full" />
-      </View>
+      {topSellingProducts.map((product, index) => (
+        <View key={index} className="flex-row justify-between items-center py-2 border-b border-gray-200">
+          <Text className="text-gray-700 font-medium">{product.name}</Text>
+          <Text className="text-gray-500">{product.total_sold} sold</Text>
+        </View>
+      ))}
     </View>
   );
 };
