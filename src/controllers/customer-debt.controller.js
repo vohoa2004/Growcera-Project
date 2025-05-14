@@ -5,7 +5,7 @@ export const getAllCustomerDebts = async (req, res) => {
   try {
     // return customer_name, amount, note, created_at
     const [rows] = await pool.query(
-      "SELECT customer_name, phone, amount, note, created_at FROM customer_debts"
+      "SELECT customer_name, phone, amount, note, created_at FROM customer_debts order by created_at limit 3"
     );
     // just return date (DD/MM/YYYY) in created_at
     rows.forEach((row) => {
