@@ -27,7 +27,7 @@ const ManagementSection: React.FC<ManagementSectionProps> = ({ onCardPress }) =>
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/d3a0d557d3c08ee7cafb52a9f8e83e0ccd4efede?placeholderIfAbsent=true',
         },
         {
-            id: 'ai',
+            id: 'messages',
             title: 'Ask AI',
             description: 'Get assistance',
             iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/78ce2521b2d8c5ee30d35f3330363da3c1f80d4a?placeholderIfAbsent=true',

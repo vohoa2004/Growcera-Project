@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { BackIcon, LightbulbIcon, SearchIcon, NotificationIcon } from './SVGIcons';
+import { BackIcon, LightbulbIcon, SearchIcon, NotificationIcon } from './supplier/SVGIcons';
 
 interface HeaderBarProps {
     title: string;

@@ -14,7 +14,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   return (
     <View className="flex-row justify-between items-center px-4 pt-12 pb-4">
       <View>
-        <Text className="text-2xl font-bold text-gray-800">Dashboard</Text>
+        {/* <Text className="text-2xl font-bold text-gray-800"> Dashboard</Text> */}
         <Text className="text-gray-500 mt-1">Welcome back, {userName}</Text>
       </View>
       <View className="flex-row items-center">

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
-import HeaderBar from 'components/supplier/HeaderBar';
+import HeaderBar from 'components/HeaderBar';
 import FilterButton from 'components/supplier/FilterButton';
 import SupplierCard from 'components/supplier/SupplierCard';
 import BottomNavBar from 'components/supplier/BottomNavBar';
 import { Supplier } from 'models/Supplier';
 import { getAll } from 'services/supplier';
+import { useRouter } from 'expo-router';
+
 
 // Filter options
 const filterOptions = ['All Suppliers', 'AI Suggestions'];
 
 const AISupplierScreen: React.FC = () => {
+    const router = useRouter();
+
     const [suppliers, setSuppliers] = useState<Supplier[]>([]);
 
     useEffect(() => {
@@ -45,7 +49,7 @@ const AISupplierScreen: React.FC = () => {
         <SafeAreaView className="flex-1 bg-gray-50">
             <HeaderBar
                 title="AI Suggested Suppliers"
-                onBackPress={() => console.log('Back pressed')}
+                onBackPress={() => router.back()}
                 onSearchPress={() => console.log('Search pressed')}
                 onNotificationPress={() => console.log('Notification pressed')}
             />
