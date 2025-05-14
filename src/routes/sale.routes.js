@@ -11,6 +11,8 @@ import {
   getMonthlyRevenue,
   getLatestSales,
   getMonthlyProfit,
+  getRatioOfRevenue,
+  getRatioOfProfit,
 } from "../controllers/sale.controller.js";
 
 const router = Router();
@@ -22,6 +24,8 @@ router.get("/profit/month", getMonthlyProfit);
 router.get("/order-count/today", getTodayOrderCount);
 router.get("/top-products", getTopSellingProducts);
 router.get("/latest", getLatestSales);
+router.get("/ratio/revenue", getRatioOfRevenue);
+router.get("/ratio/profit", getRatioOfProfit);
 router.get("/:id", getSaleById);
 router.post("/", createSale);
 router.put("/:id", updateSale);

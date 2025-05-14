@@ -110,6 +110,7 @@ export const deleteSale = async (req, res) => {
     res.status(500).json({ error: "Lỗi khi xoá giao dịch" });
   }
 };
+
 export const getTodayRevenue = async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -171,7 +172,23 @@ export const getMonthlyRevenue = async (req, res) => {
   }
 };
 
-// get top 3 latest record of sales
+export const getPreMonthRevenue = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+    SELECT MONTH(created_at) AS month, SUM(total_amount) AS revenue
+    FROM sales
+    WHERE MONTH(created_at) = MONTH(CURDATE()) - 1
+      AND YEAR(created_at) = YEAR(CURDATE())
+    GROUP BY MONTH(created_at);
+    `);
+    const month = rows[0].month || 0;
+    const revenue = rows[0].revenue || 0;
+    res.json({ month, revenue });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export const getLatestSales = async (req, res) => {
   try {
     const [rows] = await db.query(
@@ -206,6 +223,113 @@ export const getMonthlyProfit = async (req, res) => {
       total_cost: rows[0].total_cost,
       profit: rows[0].profit,
     });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getPreMonthProfit = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+    SELECT
+    IFNULL(SUM(s.total_amount), 0) AS revenue,
+    IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS total_cost,
+    IFNULL(SUM(s.total_amount), 0) - IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS profit
+  FROM sales s
+  JOIN sale_items si ON s.id = si.sale_id
+  JOIN (
+      SELECT product_id, AVG(cost_price) AS cost_price
+      FROM batch_items
+      GROUP BY product_id
+  ) AS avg_batch_cost ON si.product_id = avg_batch_cost.product_id
+  WHERE MONTH(s.created_at) = MONTH(CURDATE()) - 1
+    AND YEAR(s.created_at) = YEAR(CURDATE())
+    `);
+
+    res.json({
+      revenue: rows[0].revenue,
+      total_cost: rows[0].total_cost,
+      profit: rows[0].profit,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getRatioOfProfit = async (req, res) => {
+  try {
+    const [currentMonthProfit] = await db.query(`
+    SELECT
+    IFNULL(SUM(s.total_amount), 0) AS revenue,
+    IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS total_cost,
+    IFNULL(SUM(s.total_amount), 0) - IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS profit
+  FROM sales s
+  JOIN sale_items si ON s.id = si.sale_id
+  JOIN (
+      SELECT product_id, AVG(cost_price) AS cost_price
+      FROM batch_items
+      GROUP BY product_id
+  ) AS avg_batch_cost ON si.product_id = avg_batch_cost.product_id
+  WHERE MONTH(s.created_at) = MONTH(CURDATE())
+    AND YEAR(s.created_at) = YEAR(CURDATE())
+    `);
+    const [previousMonthProfit] = await db.query(`
+    SELECT
+    IFNULL(SUM(s.total_amount), 0) AS revenue,
+    IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS total_cost,
+    IFNULL(SUM(s.total_amount), 0) - IFNULL(SUM(si.quantity * avg_batch_cost.cost_price), 0) AS profit
+  FROM sales s
+  JOIN sale_items si ON s.id = si.sale_id
+  JOIN (
+      SELECT product_id, AVG(cost_price) AS cost_price
+      FROM batch_items
+      GROUP BY product_id
+  ) AS avg_batch_cost ON si.product_id = avg_batch_cost.product_id
+  WHERE MONTH(s.created_at) = MONTH(CURDATE()) - 1
+    AND YEAR(s.created_at) = YEAR(CURDATE())
+    `);
+
+    // Calculate the profit ratio
+    const currentProfit = currentMonthProfit[0].profit || 0;
+    const previousProfit = previousMonthProfit[0].profit || 0;
+    const ratio =
+      previousProfit === 0
+        ? 0
+        : ((currentProfit - previousProfit) / previousProfit) * 100;
+    res.json({ ratio });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getRatioOfRevenue = async (req, res) => {
+  try {
+    const [currentMonthRevenue] = await db.query(`
+    SELECT MONTH(created_at) AS month, SUM(total_amount) AS revenue
+    FROM sales
+    WHERE MONTH(created_at) = MONTH(CURDATE())
+      AND YEAR(created_at) = YEAR(CURDATE())
+    GROUP BY MONTH(created_at);
+    
+    `);
+    const [previousMonthRevenue] = await db.query(`
+    SELECT MONTH(created_at) AS month, SUM(total_amount) AS revenue
+    FROM sales
+    WHERE MONTH(created_at) = MONTH(CURDATE()) - 1
+      AND YEAR(created_at) = YEAR(CURDATE())
+    GROUP BY MONTH(created_at);
+    
+    `);
+
+    // Calculate the profit ratio
+    const currentRevenue = currentMonthRevenue[0].revenue || 0;
+    const previousRevenue = previousMonthRevenue[0].revenue || 0;
+    const ratio =
+      previousRevenue === 0
+        ? 0
+        : ((currentRevenue - previousRevenue) / previousRevenue) * 100;
+
+    res.json({ ratio });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
