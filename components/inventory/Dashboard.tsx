@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
 import { DashboardHeader } from "./DashboardHeader";
 import { MetricCard } from "./MetricCard";
@@ -7,11 +7,32 @@ import { AIAssistant } from "./AIAssistant";
 import { LowStockAlerts } from "./LowStockAlerts";
 import { BottomNavigation } from "./BottomNavigation";
 import { UpTrendIcon, BagIcon } from "./SVGIcons";
+import { getTodayOrderCount, getTodayRevenue } from "services/sale";
 
 export const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
     "home" | "analytics" | "inventory" | "settings"
   >("analytics");
+
+  const [todayRevenue, setTodayRevenue] = useState(0);
+  const [todayOrders, setTodayOrders] = useState(0);
+
+  useEffect(() => {
+    const fetchTodayData = async () => {
+      try {
+        const revenueResponse = await getTodayRevenue();
+        setTodayRevenue(revenueResponse.revenue)
+        console.log(revenueResponse)
+
+        const orderResponse = await getTodayOrderCount();
+        setTodayOrders(orderResponse.today_orders)
+        console.log(orderResponse)
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách sales:", error)
+      }
+    }
+    fetchTodayData()
+  }, [])
 
   const handleTabPress = (
     tab: "home" | "analytics" | "inventory" | "settings",
@@ -46,14 +67,14 @@ export const Dashboard: React.FC = () => {
           <View className="flex-row mb-4">
             <MetricCard
               title="Revenue"
-              value="$12,849"
-              changeText="+12.5% vs last week"
+              value={todayRevenue.toString()}
+              // changeText="+12.5% vs last week"
               icon={<UpTrendIcon />}
             />
             <MetricCard
               title="Orders"
-              value="284"
-              changeText="+8.2% vs last week"
+              value={todayOrders.toString()}
+              // changeText="+8.2% vs last week"
               icon={<BagIcon />}
             />
           </View>
