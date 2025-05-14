@@ -1,11 +1,4 @@
 export interface Sale {
-    // id: number;
-    // customer_name: string;
-    // customer_phone: string;
-    // paid_amount: string;
-    // debt: string;
-    // created_at: string,
-    // seller_id: number;
     type: string;
     total_amount: string;
     created_at: string;
@@ -18,3 +11,29 @@ export interface TodayRevenue {
 export interface TodayOrders {
     total_orders: number;
 }
+
+export interface CashFlow {
+    label: string;
+    amount: string;
+    percentage: string;
+}
+
+export interface MonthRevenue {
+    month: number;
+    revenue: string;
+}
+
+export interface MonthProfit {
+    revenue: string;
+    total_cost: string;
+    profit: string
+}
+
+export interface RatioProfit {
+    ratio: number
+}
+
+export interface RatioRevenue {
+    ratio: number
+}
+

@@ -48,7 +48,7 @@ const AISupplierScreen: React.FC = () => {
     return (
         <SafeAreaView className="flex-1 bg-gray-50">
             <HeaderBar
-                title="AI Suggested Suppliers"
+                title="Suppliers"
                 onBackPress={() => router.back()}
                 onSearchPress={() => console.log('Search pressed')}
                 onNotificationPress={() => console.log('Notification pressed')}
