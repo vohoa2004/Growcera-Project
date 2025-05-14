@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import Header from 'components/finance/Header';
 import TransactionRecords from 'components/finance/TransactionRecords';
 import BuyerDebtTracking from 'components/finance/BuyerDebtTracking';
-// import CashFlowSummary from 'components/finance/CashFlowSummary';
+import CashFlowSummary from 'components/finance/CashFlowSummary';
 import ExportReport from 'components/finance/ExportReport';
 import FinancialSuggestions from 'components/finance/FinancialSuggestions';
 // import OverspendingAlerts from 'components/finance/OverspendingAlerts';
@@ -28,8 +28,8 @@ const FinanceManagement = () => {
                     <View style={styles.sections}>
                         <TransactionRecords />
                         <BuyerDebtTracking />
-                        <TransactionClassification />
-                        {/* <CashFlowSummary /> */}
+                        {/* <TransactionClassification /> */}
+                        <CashFlowSummary />
                         <FinancialSuggestions />
                         {/* <OverspendingAlerts /> */}
                         <ExportReport />

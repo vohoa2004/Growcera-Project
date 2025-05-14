@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SectionHeader from './SectionHeader';
 import { ArrowUpIcon } from './Icons';
+import { CashFlow, MonthProfit, MonthRevenue, RatioProfit, RatioRevenue } from 'models/Transaction';
+import { getMonthProfit, getMonthRevenue, getProfitRatio, getRevenueRatio } from 'services/sale';
+import { formatMoney } from 'utils/formatter';
 
-interface CashFlowItemProps {
-    label: string;
-    amount: string;
-    percentage: string;
-}
-
-const CashFlowItem = ({ label, amount, percentage }: CashFlowItemProps) => {
+const CashFlowItem = ({ label, amount, percentage }: CashFlow) => {
     return (
         <View style={styles.itemContainer}>
             <View style={styles.labelContainer}>
@@ -33,19 +30,49 @@ const CashFlowItem = ({ label, amount, percentage }: CashFlowItemProps) => {
 };
 
 const CashFlowSummary = () => {
+    const [monthRevenue, setMonthRevenue] = useState<MonthRevenue>()
+    const [monthProfit, setMonthProfit] = useState<MonthProfit>()
+    const [ratioProfit, setRatioProfit] = useState<RatioProfit>()
+    const [ratioRevenue, setRatioRevenue] = useState<RatioRevenue>()
+
+    useEffect(() => {
+        const fetchCashFlow = async () => {
+            try {
+                const monthRevenueResponse = await getMonthRevenue();
+                setMonthRevenue(monthRevenueResponse);
+                console.log(monthRevenue)
+
+                const monthProfitResponse = await getMonthProfit();
+                setMonthProfit(monthProfitResponse);
+                console.log(monthProfit)
+
+                const ratioProfitResponse = await getProfitRatio();
+                setRatioProfit(ratioProfitResponse);
+                console.log(ratioProfit)
+
+                const ratioRevenueResponse = await getRevenueRatio();
+                setRatioRevenue(ratioRevenueResponse);
+                console.log(ratioRevenue)
+
+            } catch (error) {
+                console.error("Lỗi khi lấy thông tin dòng tiền:", error)
+            }
+        }
+        fetchCashFlow()
+    }, [])
     return (
         <View style={styles.container}>
             <SectionHeader title="Cash Flow Summary" onPress={() => { }} />
             <View style={styles.content}>
                 <CashFlowItem
                     label="Total Revenue"
-                    amount="₫12,000,000"
-                    percentage="5% from last month"
+                    amount={formatMoney(monthRevenue?.revenue || "0")}
+                    percentage={`${ratioRevenue?.ratio.toFixed(2) || 0}% from last month`}
                 />
                 <CashFlowItem
                     label="Profit"
-                    amount="₫3,500,000"
-                    percentage="3% from last month"
+                    amount={formatMoney(monthProfit?.profit || "0")}
+                    percentage={`${ratioProfit?.ratio.toFixed(2) || 0}% from last month`}
                 />
             </View>
         </View>
