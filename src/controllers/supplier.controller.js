@@ -4,7 +4,7 @@ export const getAllSuppliers = async (req, res) => {
   try {
     // return name, phone, address, rating
     const [rows] = await db.query(
-      "SELECT name, phone, address, rating FROM suppliers"
+      "SELECT id, name, phone, imageUrl, address, rating FROM suppliers"
     );
     res.json(rows);
   } catch (err) {

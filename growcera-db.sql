@@ -35,6 +35,7 @@ CREATE TABLE `suppliers` (
   `name` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255),
   `phone` VARCHAR(255),
+  `imageUrl` VARCHAR(255),
   `address` TEXT,
   `latitude` DOUBLE,
   `longitude` DOUBLE,
