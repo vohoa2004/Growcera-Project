@@ -61,16 +61,16 @@ const Homepage: React.FC = () => {
                         <View style={styles.bottomSpacer} />
                     </View>
                 </ScrollView>
-                
+
                 {/* Floating Action Button for Add Transaction */}
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.fab}
                     onPress={handleAddTransaction}
                     activeOpacity={0.8}
                 >
                     <Feather name="plus" size={24} color="white" />
                 </TouchableOpacity>
-                
+
                 <BottomNavigation
                     items={navItems}
                     onItemPress={handleNavPress}
