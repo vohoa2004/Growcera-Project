@@ -10,73 +10,33 @@ import {
     Alert
 } from 'react-native';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-// Define interfaces for our data types
-interface Batch {
-    id: string;
-    code: string;
-    stock: number;
-    expiryDate: string;
-}
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { getProductById } from 'services/product';
+import { Batch, ProductDetails } from 'models/Product';
+import { formatDate, formatMoney } from 'utils/formatter';
 
-interface Product {
-    id: string;
-    code: string;
-    name: string;
-    quantity: number;
-    price: number;
-    image: string;
-    batches: Batch[];
-}
-
-// Mock API function
-const fetchProductDetails = (): Promise<Product> => {
-    return new Promise((resolve) => {
-        // Simulate network delay
-        setTimeout(() => {
-            resolve({
-                id: '1',
-                code: '123ABC456DEF',
-                name: 'Organic Apples',
-                quantity: 48,
-                price: 25000,
-                image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ve8G7lxw2tV5HFGLKYAfMnpmmncinN.png',
-                batches: [
-                    {
-                        id: 'b1',
-                        code: 'ABCDEF123456',
-                        stock: 36,
-                        expiryDate: 'May 03, 2025'
-                    },
-                    {
-                        id: 'b2',
-                        code: 'ABCDEF123455',
-                        stock: 36,
-                        expiryDate: 'May 5, 2025'
-                    }
-                ]
-            });
-        }, 1000);
-    });
-};
-
-const ProductDetails = () => {
+const ProductDetailsScreen = () => {
     const router = useRouter();
-    const [product, setProduct] = useState<Product | null>(null);
+    const { id } = useLocalSearchParams<{ id: string }>();
+    const [data, setData] = useState<ProductDetails | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        loadProductData();
-    }, []);
+        if (id) {
+            loadProductData(id);
+        }
+    }, [id]);
 
-    const loadProductData = async () => {
+    const loadProductData = async (productId: string) => {
         try {
             setLoading(true);
-            const data = await fetchProductDetails();
-            setProduct(data);
+            const data = await getProductById(productId);
+            console.log("API response data:", data); // Debug data from API
+            setData(data);
             setError(null);
         } catch (err) {
+            console.error('Error fetching product:', err); // Log detailed error
             setError('Failed to load product details');
             Alert.alert('Error', 'Failed to load product details');
         } finally {
@@ -99,6 +59,10 @@ const ProductDetails = () => {
         Alert.alert('Options', 'Product options menu');
     };
 
+    const handleBackPress = () => {
+        router.back();
+    };
+
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
@@ -108,11 +72,11 @@ const ProductDetails = () => {
         );
     }
 
-    if (error || !product) {
+    if (error || !data) {
         return (
             <View style={styles.errorContainer}>
                 <Text style={styles.errorText}>{error || 'Something went wrong'}</Text>
-                <TouchableOpacity style={styles.retryButton} onPress={loadProductData}>
+                <TouchableOpacity style={styles.retryButton} onPress={() => id && loadProductData(id)}>
                     <Text style={styles.retryButtonText}>Retry</Text>
                 </TouchableOpacity>
             </View>
@@ -123,8 +87,11 @@ const ProductDetails = () => {
         <View style={styles.pageContainer}>
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                 <View style={styles.card}>
-                    {/* Header */}
+                    {/* Header with back button */}
                     <View style={styles.header}>
+                        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+                            <Feather name="arrow-left" size={20} color="#000" />
+                        </TouchableOpacity>
                         <Text style={styles.headerTitle}>Product Details</Text>
                         <TouchableOpacity onPress={handleMoreOptions}>
                             <Feather name="more-vertical" size={20} color="#000" />
@@ -133,53 +100,78 @@ const ProductDetails = () => {
 
                     {/* Product Image */}
                     <View style={styles.imageContainer}>
-                        <Image
-                            source={{ uri: product.image }}
-                            style={styles.image}
-                            resizeMode="cover"
-                        />
+                        {data.product.imageUrl ? (
+                            <Image
+                                source={{ uri: data.product.imageUrl }}
+                                style={styles.image}
+                                resizeMode="cover"
+                            />
+                        ) : (
+                            <View style={[styles.image, styles.placeholderImage]}>
+                                <Feather name="image" size={40} color="#d1d5db" />
+                            </View>
+                        )}
                     </View>
 
                     {/* Product Info */}
                     <View style={styles.infoContainer}>
                         <View style={styles.infoSection}>
                             <Text style={styles.infoSectionLabel}>Product Code</Text>
-                            <Text style={styles.infoSectionValue}>{product.code}</Text>
+                            <Text style={styles.infoSectionValue}>{data.product.code || 'N/A'}</Text>
                         </View>
 
                         <View style={styles.infoSection}>
                             <Text style={styles.infoSectionLabel}>Product Name</Text>
-                            <Text style={styles.infoSectionValue}>{product.name}</Text>
+                            <Text style={styles.infoSectionValue}>{data.product.name || 'N/A'}</Text>
                         </View>
 
                         <View style={styles.quantityPriceRow}>
                             <View style={styles.infoColumn}>
                                 <Text style={styles.infoLabel}>Quantity</Text>
-                                <Text style={styles.infoValue}>{product.quantity}</Text>
+                                <Text style={styles.infoValue}>{data.product.quantity || 0}</Text>
                             </View>
                             <View style={styles.infoColumn}>
                                 <Text style={styles.infoLabel}>Current Selling Price</Text>
-                                <Text style={styles.infoValue}>{product.price}</Text>
+                                <Text style={styles.infoValue}>{formatMoney(data.product.unit_price) || "0"} đ / {data.product.unit}</Text>
                             </View>
                         </View>
+
+                        {data.product.description && (
+                            <View style={styles.infoSection}>
+                                <Text style={styles.infoSectionLabel}>Description</Text>
+                                <Text style={styles.descriptionText}>{data.product.description}</Text>
+                            </View>
+                        )}
+                    </View>
+
+                    {/* Batches Header */}
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionHeaderText}>Batches</Text>
+                        <Text style={styles.batchCount}>{data.batches?.length || 0} batches</Text>
                     </View>
 
                     {/* Batches */}
-                    {product.batches.map((batch: Batch) => (
-                        <View key={batch.id} style={styles.batchContainer}>
-                            <View style={styles.batchHeader}>
-                                <Text style={styles.batchTitle}>Batch: {batch.code}</Text>
-                                <TouchableOpacity onPress={() => handleEditBatch(batch.id)}>
-                                    <Feather name="edit-2" size={16} color="#000" />
-                                </TouchableOpacity>
+                    {Array.isArray(data.batches) && data.batches.length > 0 ? (
+                        data.batches.map((batch: Batch) => (
+                            <View key={batch.batch_id} style={styles.batchContainer}>
+                                <View style={styles.batchHeader}>
+                                    <Text style={styles.batchTitle}>Batch: {batch.batch_code}</Text>
+                                    <TouchableOpacity onPress={() => handleEditBatch(batch.batch_code)}>
+                                        <Feather name="edit-2" size={16} color="#000" />
+                                    </TouchableOpacity>
+                                </View>
+                                <Text style={styles.batchStock}>Stock: {batch.quantity} units</Text>
+                                <View style={styles.batchRow}>
+                                    <MaterialIcons name="event-available" size={16} color="#22c55e" />
+                                    <Text style={styles.batchText}>Expires: {formatDate(batch.expiration_date)}</Text>
+                                </View>
                             </View>
-                            <Text style={styles.batchStock}>Stock: {batch.stock} units</Text>
-                            <View style={styles.batchRow}>
-                                <MaterialIcons name="event-available" size={16} color="#22c55e" />
-                                <Text style={styles.batchText}>Expires: {batch.expiryDate}</Text>
-                            </View>
+                        ))
+                    ) : (
+                        <View style={styles.noBatchesContainer}>
+                            <Text style={styles.noBatchesText}>No batches available</Text>
                         </View>
-                    ))}
+                    )}
                 </View>
             </ScrollView>
 
@@ -264,10 +256,15 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#f3f4f6',
     },
+    backButton: {
+        padding: 4,
+    },
     headerTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#111827',
+        flex: 1,
+        textAlign: 'center',
     },
     imageContainer: {
         padding: 20,
@@ -283,6 +280,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
+    },
+    placeholderImage: {
+        backgroundColor: '#f3f4f6',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     infoContainer: {
         paddingHorizontal: 18,
@@ -305,6 +307,11 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: '#111827',
         letterSpacing: 0.3,
+    },
+    descriptionText: {
+        fontSize: 15,
+        color: '#4b5563',
+        lineHeight: 22,
     },
     infoRow: {
         flexDirection: 'row',
@@ -331,6 +338,24 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 16,
         color: '#111827',
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 18,
+        paddingVertical: 14,
+        borderTopWidth: 1,
+        borderTopColor: '#f3f4f6',
+        backgroundColor: '#f9fafb',
+    },
+    sectionHeaderText: {
+        fontWeight: '600',
+        fontSize: 16,
+        color: '#111827',
+    },
+    batchCount: {
+        fontSize: 14,
+        color: '#6b7280',
     },
     batchContainer: {
         paddingHorizontal: 18,
@@ -366,6 +391,15 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         fontSize: 14,
     },
+    noBatchesContainer: {
+        padding: 18,
+        alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    noBatchesText: {
+        color: '#9ca3af',
+        fontSize: 14,
+    },
     fab: {
         position: 'absolute',
         bottom: 28,
@@ -384,4 +418,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProductDetails;
+export default ProductDetailsScreen;

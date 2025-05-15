@@ -2,10 +2,10 @@ import ChatHeader from 'components/chatbot/ChatHeader';
 import ChatInputBar from 'components/chatbot/ChatInputBar';
 import ChatMessage from 'components/chatbot/ChatMessage';
 import QuickActionButtons from 'components/chatbot/QuickActionButtons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import chatbotCaller from 'utils/chatbotCaller';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 
 interface Message {
@@ -16,6 +16,7 @@ interface Message {
 
 const ChatInterface: React.FC = () => {
     const router = useRouter();
+    const { initialMessage } = useLocalSearchParams<{ initialMessage?: string }>();
 
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -30,6 +31,13 @@ const ChatInterface: React.FC = () => {
         "Financial report?",
         "Today's Revenue?",
     ];
+
+    useEffect(() => {
+        // If an initial message is provided, send it automatically
+        if (initialMessage) {
+            handleSendMessage(initialMessage);
+        }
+    }, [initialMessage]);
 
     const handleSendMessage = async (text: string) => {
         const newMessage: Message = {

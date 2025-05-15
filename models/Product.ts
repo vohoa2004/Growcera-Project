@@ -1,4 +1,5 @@
 export interface LowStockProduct {
+    id: number;
     name: string;
     quantity: number;
     alertType: "critical";
@@ -21,4 +22,29 @@ export interface Product {
     hasImage: boolean;
     category: string;
     imageUrl: string;
+}
+
+export interface ProductDetails {
+    product: ProductDetailsProp;
+    batches: Batch[];
+}
+
+export interface ProductDetailsProp {
+    product_id: number;
+    code: string;
+    name: string;
+    unit: string;
+    unit_price: number;
+    quantity: number;
+    hasImage: boolean;
+    category: string;
+    imageUrl: string;
+    description: string;
+}
+
+export interface Batch {
+    batch_id: number;
+    batch_code: string;
+    quantity: number;
+    expiration_date: string;
 }
