@@ -5,6 +5,10 @@ import { FormField } from '../components/batch/FormField';
 import { DatePickerField } from '../components/batch/DatePickerField';
 import { ActionButtons } from '../components/batch/ActionButtons';
 import { CameraIcon } from '../components/batch/Icons';
+import BottomNavigation from 'components/BottomNavigation';
+import { navItems } from 'constants/navItems';
+import { useRouter } from 'expo-router';
+import { useCallback } from 'react';
 
 const AddProductBatch: React.FC = () => {
     const [batchCode, setBatchCode] = React.useState('');
@@ -45,6 +49,15 @@ const AddProductBatch: React.FC = () => {
             expiryDate,
         });
     };
+
+    const router = useRouter();
+    const handleNavPress = useCallback((itemId: string) => {
+        try {
+            router.push(`/${itemId}`);
+        } catch (error) {
+            console.error('Navigation error:', error);
+        }
+    }, [router]);
 
     return (
         <View style={styles.container}>
@@ -108,6 +121,10 @@ const AddProductBatch: React.FC = () => {
                 </View>
             </ScrollView>
             <ActionButtons onCancel={handleCancel} onSave={handleSave} />
+            <BottomNavigation
+                items={navItems}
+                onItemPress={handleNavPress}
+            />
         </View>
     );
 };

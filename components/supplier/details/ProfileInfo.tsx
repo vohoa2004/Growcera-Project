@@ -6,10 +6,9 @@ interface ProfileInfoProps {
     logoUrl: string;
     companyName: string;
     rating: number;
-    reviewCount: number;
 }
 
-const ProfileInfo = ({ logoUrl, companyName, rating, reviewCount }: ProfileInfoProps) => {
+const ProfileInfo = ({ logoUrl, companyName, rating }: ProfileInfoProps) => {
     return (
         <View className="px-4 py-6">
             <View className="flex-row">
@@ -41,7 +40,7 @@ const ProfileInfo = ({ logoUrl, companyName, rating, reviewCount }: ProfileInfoP
                                 </Defs>
                             </Svg>
                         </View>
-                        <Text className="text-gray-600">{rating} ({reviewCount} reviews)</Text>
+                        <Text className="text-gray-600">{rating}</Text>
                     </View>
                 </View>
             </View>

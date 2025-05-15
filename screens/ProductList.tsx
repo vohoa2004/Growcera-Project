@@ -68,7 +68,7 @@ const ProductList = () => {
             <ScrollView className="flex-1">
                 <View className="p-4">
                     <HeaderBar
-                        title="Inventory Dashboard"
+                        title="Product List"
                         onBackPress={() => router.back()}
                         onSearchPress={() => console.log('Search pressed')}
                         onNotificationPress={() => console.log('Notification pressed')}
