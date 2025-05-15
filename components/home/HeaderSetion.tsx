@@ -9,10 +9,10 @@ interface HeaderSectionProps {
 }
 
 const HeaderSection: React.FC<HeaderSectionProps> = ({
-    userName = "John",
-    storeName = "John's Store",
-    profileImageUrl = "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/5cf9d3492ab7e9b35fe7d1a9526639dd291a3977?placeholderIfAbsent=true",
-    notificationImageUrl = "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/dc53074dea9882b80ffbe2628c5bdf25d93cef97?placeholderIfAbsent=true"
+    userName = "Growcera",
+    storeName = "Growcera's Store",
+    profileImageUrl = "",
+    notificationImageUrl = "https://img.icons8.com/material-rounded/24/40C057/appointment-reminders.png"
 }) => {
     return (
         <View style={styles.headerContainer}>

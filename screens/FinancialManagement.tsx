@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import Header from 'components/finance/Header';
 import TransactionRecords from 'components/finance/TransactionRecords';
@@ -8,13 +8,22 @@ import ExportReport from 'components/finance/ExportReport';
 import FinancialSuggestions from 'components/finance/FinancialSuggestions';
 // import OverspendingAlerts from 'components/finance/OverspendingAlerts';
 import TransactionClassification from 'components/finance/TransactionClassification';
-import BottomNavigation from 'components/finance/BottomNavigation';
+import BottomNavigation from 'components/BottomNavigation';
 import HeaderBar from 'components/HeaderBar';
 import { useRouter } from 'expo-router';
+import { navItems } from 'constants/navItems';
 
 const FinanceManagement = () => {
     const [activeTab, setActiveTab] = useState('home');
     const router = useRouter();
+
+    const handleNavPress = useCallback((itemId: string) => {
+        try {
+            router.push(`/${itemId}`);
+        } catch (error) {
+            console.error('Navigation error:', error);
+        }
+    }, [router]);
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
@@ -36,7 +45,10 @@ const FinanceManagement = () => {
                     </View>
                 </ScrollView>
             </View>
-            <BottomNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+            <BottomNavigation
+                items={navItems}
+                onItemPress={handleNavPress}
+            />
         </SafeAreaView>
     );
 };

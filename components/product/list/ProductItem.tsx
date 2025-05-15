@@ -1,23 +1,31 @@
 import * as React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 
 interface ProductItemProps {
+    id: number;
     name: string;
     stock: number;
     expiryDate: string;
     hasImage: boolean;
     imageUrl: string;
+    onPress: (id: number) => void;
 }
 
 const ProductItem = ({
+    id,
     name,
     stock,
     expiryDate,
     hasImage,
-    imageUrl
+    imageUrl,
+    onPress
 }: ProductItemProps) => {
     return (
-        <View className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+        <TouchableOpacity 
+            className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+            onPress={() => onPress(id)}
+            activeOpacity={0.7}
+        >
             <View className="flex-row justify-between">
                 <View className="flex-1">
                     <Text className="text-lg font-semibold text-gray-800">{name}</Text>
@@ -26,7 +34,7 @@ const ProductItem = ({
                     <View className="flex-row items-center mt-2">
                         <View className="mr-2">
                             <Image
-                                source={{ uri: stock < 15 ? "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/18a168fe772737b601b5aaf64c47af90ed1a3ac6?placeholderIfAbsent=true" : "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/baf6844bea53606bb4ff5c11e9348a865041ad94?placeholderIfAbsent=true" }}
+                                source={{ uri: stock < 15 ? "https://img.icons8.com/ios/50/40C057/new-product.png" : "https://img.icons8.com/ios-filled/50/40C057/product.png" }}
                                 className="w-4 h-4"
                                 accessibilityLabel="Expiry icon"
                             />
@@ -43,7 +51,7 @@ const ProductItem = ({
                     />
                 )}
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

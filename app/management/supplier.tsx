@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import AISupplierScreen from '../../screens/AISupplierScreen';
+import SupplierScreen from '../../screens/SupplierScreen';
 
 export default function SupplierManagementScreen() {
   return (
@@ -9,7 +9,7 @@ export default function SupplierManagementScreen() {
           headerShown: false,
         }}
       />
-      <AISupplierScreen />
+      <SupplierScreen />
     </>
   );
 } 

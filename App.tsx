@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import './global.css';
 import InventoryDashboard from 'screens/InventoryDashboard';
 import FinanceManagement from 'screens/FinancialManagement';
-import AISupplierScreen from 'screens/AISupplierScreen';
+import SupplierScreen from 'screens/SupplierScreen';
 import Homepage from 'screens/Homepage';
 
 export default function App() {

@@ -12,25 +12,25 @@ const ManagementSection: React.FC<ManagementSectionProps> = ({ onCardPress }) =>
             id: 'product',
             title: 'Product Management',
             description: 'Manage inventory',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/e35eafc4f6bd1bcafded76d2c063ab943852ce41?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/material-rounded/24/40C057/cardboard-box.png',
         },
         {
             id: 'finance',
             title: 'Financial',
             description: 'Track finances',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/1394d62c685746ac319a889e29e819e9250ed994?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/material-sharp/24/40C057/wallet.png',
         },
         {
             id: 'supplier',
             title: 'Supply Chain',
             description: 'Manage suppliers',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/d3a0d557d3c08ee7cafb52a9f8e83e0ccd4efede?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/material/24/40C057/van--v1.png',
         },
         {
             id: 'messages',
             title: 'Ask AI',
             description: 'Get assistance',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/78ce2521b2d8c5ee30d35f3330363da3c1f80d4a?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/ios-glyphs/30/40C057/message-bot.png',
         },
     ];
 

@@ -52,7 +52,7 @@ const AddProductBatch: React.FC = () => {
             <ScrollView style={styles.scrollContainer}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={{ uri: 'https://cdn.builder.io/api/v1/image/assets/TEMP/375fd3132f684acd81f4efa121cd7154dd6fd1e7' }}
+                        source={{ uri: '' }}
                         style={styles.image}
                         resizeMode="contain"
                     />

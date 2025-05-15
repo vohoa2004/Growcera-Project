@@ -33,6 +33,8 @@ export const LowStockAlerts: React.FC<LowStockAlertsProps> = ({
       <View>
         {lowStockProducts.map((product, index) => (
           <LowStockAlert
+            key={index}
+            id={product.id}
             name={product.name}
             quantity={product.quantity}
             alertType="critical"
