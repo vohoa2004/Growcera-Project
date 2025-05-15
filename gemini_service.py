@@ -21,7 +21,7 @@ except Exception as e:
 # Initialize Gemini Model (Singleton pattern - create once)
 try:
     # Dùng GenerativeModel thông thường cho cả sync và async
-    gemini_model = genai.GenerativeModel('gemini-1.5-flash') # <<< Sửa thành GenerativeModel
+    gemini_model = genai.GenerativeModel('gemini-2.0-flash') # <<< Sửa thành GenerativeModel
     print("Gemini model loaded.")
 except Exception as e:
     print(f"Error loading Gemini model: {e}")
