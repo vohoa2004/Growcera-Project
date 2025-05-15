@@ -64,3 +64,35 @@ export const deleteSupplier = async (req, res) => {
     res.status(500).json({ error: "Lỗi xoá nhà cung cấp" });
   }
 };
+
+export const getProductsBySupplierId = async (req, res) => {
+  const supplierId = req.params.id;
+  try {
+    const [rows] = await db.query(
+      `
+      SELECT 
+        sp.id AS product_id,
+        sp.code AS product_code,
+        sp.name AS product_name,
+        sp.description,
+        sp.unit,
+        sp.unit_price,
+        sp.image_url,
+        sp.product_url,
+        sp.created_at
+      FROM supplier_products sp
+      WHERE sp.supplier_id = ?
+      ORDER BY sp.id
+    `,
+      [supplierId]
+    );
+
+    res.json({
+      supplier_id: supplierId,
+      total_products: rows.length,
+      products: rows,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
