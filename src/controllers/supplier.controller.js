@@ -69,29 +69,63 @@ export const getProductsBySupplierId = async (req, res) => {
   const supplierId = req.params.id;
   try {
     const [rows] = await db.query(
-      `
-      SELECT 
+      `SELECT 
+        s.id AS supplier_id,
+        s.name AS supplier_name,
+        s.email,
+        s.phone,
+        s.imageUrl,
+        s.address,
+        s.latitude,
+        s.longitude,
+        s.rating,
+        s.created_at AS supplier_created_at,
+
         sp.id AS product_id,
-        sp.code AS product_code,
+        sp.code,
         sp.name AS product_name,
         sp.description,
         sp.unit,
         sp.unit_price,
         sp.image_url,
         sp.product_url,
-        sp.created_at
-      FROM supplier_products sp
-      WHERE sp.supplier_id = ?
-      ORDER BY sp.id
-    `,
+        sp.created_at AS product_created_at
+      FROM suppliers s
+      LEFT JOIN supplier_products sp ON s.id = sp.supplier_id
+      WHERE s.id = ?`,
       [supplierId]
     );
 
-    res.json({
-      supplier_id: supplierId,
-      total_products: rows.length,
-      products: rows,
+    const supplierInfo = {
+      id: rows[0].supplier_id,
+      name: rows[0].supplier_name,
+      email: rows[0].email,
+      phone: rows[0].phone,
+      imageUrl: rows[0].imageUrl,
+      address: rows[0].address,
+      latitude: rows[0].latitude,
+      longitude: rows[0].longitude,
+      rating: rows[0].rating,
+      products: [],
+    };
+
+    rows.forEach((row) => {
+      if (row.product_id) {
+        supplierInfo.products.push({
+          id: row.product_id,
+          code: row.code,
+          name: row.product_name,
+          description: row.description,
+          unit: row.unit,
+          unit_price: row.unit_price,
+          image_url: row.image_url,
+          product_url: row.product_url,
+          created_at: row.product_created_at,
+        });
+      }
     });
+
+    res.json(supplierInfo);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
