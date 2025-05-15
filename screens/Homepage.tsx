@@ -4,10 +4,11 @@ import ManagementSection from 'components/home/ManagementSection';
 import OverviewSection from 'components/home/OverviewSection';
 import BottomNavigation from 'components/BottomNavigation';
 import React, { useCallback } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { navItems } from 'constants/navItems';
 import { activities } from 'constants/activities';
+import { Feather } from '@expo/vector-icons';
 
 // Import components
 
@@ -36,6 +37,10 @@ const Homepage: React.FC = () => {
         }
     }, [router]);
 
+    const handleAddTransaction = useCallback(() => {
+        router.push('/management/add-transaction');
+    }, [router]);
+
     // Recent activities data
 
     return (
@@ -56,6 +61,16 @@ const Homepage: React.FC = () => {
                         <View style={styles.bottomSpacer} />
                     </View>
                 </ScrollView>
+                
+                {/* Floating Action Button for Add Transaction */}
+                <TouchableOpacity 
+                    style={styles.fab}
+                    onPress={handleAddTransaction}
+                    activeOpacity={0.8}
+                >
+                    <Feather name="plus" size={24} color="white" />
+                </TouchableOpacity>
+                
                 <BottomNavigation
                     items={navItems}
                     onItemPress={handleNavPress}
@@ -82,6 +97,23 @@ const styles = StyleSheet.create({
     },
     bottomSpacer: {
         height: 20, // Extra space at the bottom of the scroll view
+    },
+    fab: {
+        position: 'absolute',
+        bottom: 80, // Positioned above the bottom navigation
+        right: 20,
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: '#22c55e', // Green color
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        zIndex: 999,
     },
 });
 
