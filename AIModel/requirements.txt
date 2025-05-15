@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+pymysql
+pandas
+google-generativeai
+pydantic # FastAPI uses Pydantic for data validation

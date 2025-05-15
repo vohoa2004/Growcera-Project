@@ -1,0 +1,1084 @@
+[
+  {
+    "table_name": "ai_suggestions",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "target_type",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "target_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "suggestion_text",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "confidence_score",
+        "data_type": "float",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "batch_items",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "batch_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "supplier_product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "quantity",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "cost_price",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "chatbot_logs",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "user_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "question",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "answer",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "intent",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "customer_debts",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "customer_name",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "phone",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "amount",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "note",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "expiration_warnings",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "days_remaining",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "warning_sent",
+        "data_type": "tinyint(1)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "financial_reports",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "report_month",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "total_income",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "total_expense",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "net_cashflow",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "auto_generated",
+        "data_type": "tinyint(1)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "inventory_logs",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "change",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "reason",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "price_predictions",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "predicted_price",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "predicted_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "valid_until",
+        "data_type": "date",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "product_batches",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "supplier_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "batch_code",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "quantity",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "expiration_date",
+        "data_type": "date",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "import_date",
+        "data_type": "date",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "product_prices",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "price",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "effective_from",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "products",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "code",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "name",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "description",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "quantity",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "unit_price",
+        "data_type": "decimal(10,2)",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "unit",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "expiry_date",
+        "data_type": "date",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "min_stock_level",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "owner_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "sale_items",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "sale_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "quantity",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "unit_price",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "subtotal",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "sales",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "customer_name",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "customer_phone",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "total_amount",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "paid_amount",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "debt",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      },
+      {
+        "column_name": "seller_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "supplier_products",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "supplier_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "code",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "name",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "description",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "unit",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "unit_price",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "image_url",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "product_url",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "suppliers",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "name",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "email",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "phone",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "address",
+        "data_type": "text",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "latitude",
+        "data_type": "double",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "longitude",
+        "data_type": "double",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "rating",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  },
+  {
+    "table_name": "supply_order_items",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "supply_order_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "product_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "quantity",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "price_per_unit",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "supply_orders",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "supplier_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "user_id",
+        "data_type": "int",
+        "nullable": "YES",
+        "key": "MUL",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "status",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "document_url",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "notes",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "total_amount",
+        "data_type": "decimal(10,2)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "order_date",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "delivered_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      }
+    ]
+  },
+  {
+    "table_name": "users",
+    "columns": [
+      {
+        "column_name": "id",
+        "data_type": "int",
+        "nullable": "NO",
+        "key": "PRI",
+        "default": null,
+        "extra": "auto_increment"
+      },
+      {
+        "column_name": "name",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "email",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "phone",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "UNI",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "password_hash",
+        "data_type": "varchar(255)",
+        "nullable": "NO",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "latitude",
+        "data_type": "double",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "longitude",
+        "data_type": "double",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "role",
+        "data_type": "varchar(255)",
+        "nullable": "YES",
+        "key": "",
+        "default": null,
+        "extra": ""
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp",
+        "nullable": "YES",
+        "key": "",
+        "default": "CURRENT_TIMESTAMP",
+        "extra": "DEFAULT_GENERATED"
+      }
+    ]
+  }
+]
