@@ -42,23 +42,23 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
         {
             id: 'home',
             label: 'Home',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/012cbd553fe487da83cb08acafe8f9bc449f9319?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/ios-filled/50/40C057/home.png',
             isActive: true,
         },
         {
             id: 'analytics',
             label: 'Analytics',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/c2c53007025576739256c4e5b5b91a75e4355261?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/ios/50/40C057/combo-chart--v1.png',
         },
         {
             id: 'messages',
             label: 'Messages',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/1845409c484a658f6a679514b479c14423ed39e8?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/ios-filled/50/40C057/messages-mac.png',
         },
         {
             id: 'settings',
             label: 'Settings',
-            iconUrl: 'https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/e04c5993a175133055c329d2968d7d257b5e3d27?placeholderIfAbsent=true',
+            iconUrl: 'https://img.icons8.com/ios-filled/50/40C057/settings.png',
         },
     ],
     onItemPress

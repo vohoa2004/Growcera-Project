@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
 export const LowStockAlert: React.FC<LowStockProduct> = ({
+  id,
   name,
   quantity,
   alertType,

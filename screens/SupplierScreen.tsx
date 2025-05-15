@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import HeaderBar from 'components/HeaderBar';
 import FilterButton from 'components/supplier/FilterButton';
 import SupplierCard from 'components/supplier/SupplierCard';
-import BottomNavBar from 'components/supplier/BottomNavBar';
 import { Supplier } from 'models/Supplier';
 import { getAll } from 'services/supplier';
 import { useRouter } from 'expo-router';
+import BottomNavigation from 'components/BottomNavigation';
+import { navItems } from 'constants/navItems';
 
 
 // Filter options
 const filterOptions = ['All Suppliers', 'AI Suggestions'];
 
-const AISupplierScreen: React.FC = () => {
+const SupplierScreen: React.FC = () => {
     const router = useRouter();
 
     const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -36,9 +37,13 @@ const AISupplierScreen: React.FC = () => {
         setActiveFilter(filter);
     };
 
-    const handleTabPress = (tabName: string) => {
-        setActiveTab(tabName);
-    };
+    const handleNavPress = useCallback((itemId: string) => {
+        try {
+            router.push(`/${itemId}`);
+        } catch (error) {
+            console.error('Navigation error:', error);
+        }
+    }, [router]);
 
     const handleViewDetails = (supplierId: string | number) => {
         console.log(`View details for supplier ${supplierId}`);
@@ -90,12 +95,12 @@ const AISupplierScreen: React.FC = () => {
                 </View>
             </ScrollView>
 
-            <BottomNavBar
-                activeTab={activeTab}
-                onTabPress={handleTabPress}
+            <BottomNavigation
+                items={navItems}
+                onItemPress={handleNavPress}
             />
         </SafeAreaView>
     );
 };
 
-export default AISupplierScreen;
+export default SupplierScreen;

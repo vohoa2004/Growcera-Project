@@ -11,7 +11,7 @@ const SearchBar = ({ value, onChangeText }: SearchBarProps) => {
         <View className="flex-row items-center bg-gray-100 rounded-lg px-3 py-2">
             <View className="mr-2">
                 <Image
-                    source={{ uri: "https://cdn.builder.io/api/v1/image/assets/176e2b6a03e94e0cbe0c477511c3678d/11dd31cdeb691da3a0111f88fd35ef7b13621876?placeholderIfAbsent=true" }}
+                    source={{ uri: "https://img.icons8.com/ios-filled/50/40C057/search--v1.png" }}
                     className="w-5 h-5"
                     accessibilityLabel="Search icon"
                 />
