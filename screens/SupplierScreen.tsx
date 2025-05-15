@@ -46,8 +46,7 @@ const SupplierScreen: React.FC = () => {
     }, [router]);
 
     const handleViewDetails = (supplierId: string | number) => {
-        console.log(`View details for supplier ${supplierId}`);
-        // Navigation logic would go here
+        router.push(`/management/supplier-details/${supplierId}`);
     };
 
     return (
