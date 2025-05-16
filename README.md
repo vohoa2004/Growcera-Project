@@ -49,7 +49,7 @@
 
 ---
 
-## 📦 Tech Stack (Optional)
+## 📦 Tech Stack
 
 - **Frontend:** React Native, Expo  
 - **Backend:**  Node.js (Express.js)  
