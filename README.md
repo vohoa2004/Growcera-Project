@@ -4,27 +4,28 @@
 
 ---
 
-## 🌟 Key Features
+## 🌟 Key Proposed Features
 
-### ✅ Product Management
-- Track inventory in real-time  
-- Monitor product expiration and manage re-stock alerts  
-- Automate supply tracking processes
+### Product Management
+✅ Organize and easy browse product list, view product details   
+✅ Monitor product expiration and notify re-stock alerts  
+⏳ Automate supply tracking processes 
 
-### 💰 Finance Management
-- Record and visualize cash flow and expenses  
-- Get clear insights into operating costs  
-- Export reports for business analysis
+### Finance Management
+✅ Record and visualize cash flow and expenses  
+✅ Get clear insights into operating costs  
+⏳ Export reports for business analysis
 
-### 🔗 Supplier Management
-- Maintain supplier contact details and order history  
-- Streamline purchase orders and restocking processes  
-- Collaborate with suppliers more efficiently
+### Supplier Management
+⏳  Verify suppliers and suggest best-fit suppliers based on store's needs.
+✅ Maintain supplier contact details 
+⏳ Streamline purchase orders and restocking processes  
+⏳ Collaborate with suppliers more efficiently
 
-### 🤖 AI Chatbot Assistant
-- Ask questions like "What were my top-selling items last month?"  
-- Query stock levels, revenue, and order history in natural language  
-- Get smart suggestions for stock replenishment and business insights
+### AI Chatbot Assistant
+✅ Ask questions like "What were my top-selling items last month?"  
+✅ Query stock levels, revenue, and order history in natural language  
+✅ Get smart suggestions for stock replenishment and business insights
 
 ---
 
@@ -53,9 +54,10 @@
 - **Database:** MySQL
 - **AI Assistant:** Gemini API, Google Collab, Google AI Studio, GCP
 - **Version Control:** Git
+- **Deployment**: Render
 
 ## Test Prototype
-You can access the working prototype via: https://growcera.onrender.com/
+You can access the current working prototype of this project via: https://growcera.onrender.com/
 
 Test Account:
 - email: growcera@example.vn
