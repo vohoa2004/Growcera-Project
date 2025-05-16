@@ -7,25 +7,27 @@
 ## 🌟 Key Proposed Features
 
 ### Product Management
-✅ Organize and easy browse product list, view product details   
-✅ Monitor product expiration and notify re-stock alerts  
-⏳ Automate supply tracking processes 
+- ✅ Organize and easy browse product list, view product details   
+- ✅ Monitor product expiration and notify re-stock alerts  
+- ⏳ Automate supply tracking processes 
 
 ### Finance Management
-✅ Record and visualize cash flow and expenses  
-✅ Get clear insights into operating costs  
-⏳ Export reports for business analysis
+- ✅ Record and visualize cash flow and expenses  
+- ✅ Get clear insights into operating costs  
+- ⏳ Export reports for business analysis
 
 ### Supplier Management
-⏳  Verify suppliers and suggest best-fit suppliers based on store's needs.
-✅ Maintain supplier contact details 
-⏳ Streamline purchase orders and restocking processes  
-⏳ Collaborate with suppliers more efficiently
+- ⏳ Verify suppliers and suggest best-fit suppliers based on store's needs  
+- ✅ Maintain supplier contact details  
+- ⏳ Streamline purchase orders and restocking processes  
+- ⏳ Collaborate with suppliers more efficiently
+
 
 ### AI Chatbot Assistant
-✅ Ask questions like "What were my top-selling items last month?"  
-✅ Query stock levels, revenue, and order history in natural language  
-✅ Get smart suggestions for stock replenishment and business insights
+- ✅ Answer questions from store owners, like "Which products are running out of stock, suggest goods to import more."  
+- ✅ Query stock levels, revenue, and order history in natural language  
+- ✅ Get smart suggestions for stock replenishment, simple financial analysis
+- ⏳  Get complex, in-depth analysis for store's sales data
 
 ---
 
