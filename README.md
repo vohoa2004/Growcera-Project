@@ -12,6 +12,7 @@
 - ⏳ Automate supply tracking processes 
 
 ### Finance Management
+- ⏳ Smart transaction logging using computer vision (e.g. cashier scans products with phone camera, system auto-detects items and calculates total)
 - ✅ Record and visualize cash flow and expenses  
 - ✅ Get clear insights into operating costs  
 - ⏳ Export reports for business analysis
