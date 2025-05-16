@@ -27,8 +27,7 @@
 - ✅ Answer questions from store owners, like "Which products are running out of stock, suggest goods to import more."  
 - ✅ Query stock levels, revenue, and order history in natural language  
 - ✅ Get smart suggestions for stock replenishment, simple financial analysis
-- ⏳  Get complex, in-depth analysis for store's sales data
-
+- ⏳  Get complex, in-depth analysis on store's sales data and generate advanced insights
 ---
 
 ## 🚀 What Makes Growcera Different?
